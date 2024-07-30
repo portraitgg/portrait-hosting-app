@@ -1,0 +1,53 @@
+{
+  "name": "portrait-menu-bar-app",
+  "productName": "Portrait",
+  "version": "0.0.1",
+  "description": "An application to interact with Portrait",
+  "main": "./dist/main.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-electron": "electron ./dist/main.mjs",
+    "build": "tsc && npm run copy-assets",
+    "delete": "sudo rm -rf ./dist",
+    "copy-assets": "cp -r ./src/assets ./src/contracts ./dist/",
+    "build-and-start-electron": " npm run build && npm run start-electron",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "keywords": [],
+  "author": "ryan",
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
+    "@types/dockerode": "^3.3.23",
+    "electron": "^30.0.1",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@waku/message-hash": "^0.1.15-08fc2d1.0",
+    "@waku/sdk": "^0.0.27-08fc2d1.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "dockerode": "^4.0.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^8.1.0",
+    "ethers": "^6.12.1",
+    "express": "^4.19.2",
+    "multiformats": "^13.1.3",
+    "nanoid": "^5.0.4",
+    "node-fetch": "^3.3.2",
+    "protobufjs": "^7.3.2",
+    "update-electron-app": "^3.0.0"
+  }
+}
