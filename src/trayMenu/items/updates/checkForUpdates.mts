@@ -26,7 +26,7 @@ function isNewer(currentVersion, incomingVersion) {
 }
 
 const callForUpdates = async () => {
-  const endpoint = `${API_URL}/api/v2/node/latestversion/get`;
+  const endpoint = `${API_URL}/node/latestversion/get`;
 
   const get = await fetch(endpoint);
 

@@ -5,8 +5,8 @@ This repository contains the hosting node, which facilitates the decentralized h
 ## Download
 To download the app, please use the following link for Mac (ARM) and Mac (x64):
 
-- [Download for Mac (ARM)](https://portrait.host/ipfs/bafybeifu53gnzx3kr7246ol7hxbpv43vh42rbgrysklkenzvjrn6awktaq)
-- [Download for Mac (x64)](https://portrait.host/ipfs/bafybeicvl5r3k5sgv2sdmshpuogry2mjsy63ivdljtbkhpe6tljhnq6bhi)
+- [Download for Mac (ARM)](https://api.portrait.so/api/v2/node/download?platform=mac-arm)
+- [Download for Mac (x64)](https://api.portrait.so/api/v2/node/download?platform=mac-x64)
 
 > Note: The app is currently in beta and only available for Mac. Support for other platforms will be considered in the future.
 

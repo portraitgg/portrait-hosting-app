@@ -20,7 +20,7 @@ const fetchNotifications = async () => {
 }
 */
 
-    const endpoint = `${API_URL}/api/v2/desktop-app/notifications/get`;
+    const endpoint = `${API_URL}/node/notifications/get`;
 
     const response = await fetch(endpoint);
 

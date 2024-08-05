@@ -2,7 +2,7 @@ import { store } from './store.mjs';
 import { API_URL } from '../globals.mjs';
 const callHome = () => {
   try {
-    const endpoint = `${API_URL}/api/v2/desktop-app/ping/post`;
+    const endpoint = `${API_URL}/node/ping/post`;
     const nodeAddress = store.get('ethereumAddress');
 
     if (!nodeAddress) {

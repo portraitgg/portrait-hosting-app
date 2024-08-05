@@ -17,7 +17,7 @@ export default async (req, res) => {
     const _portraitId = store.get('accounts.current.portraitId') as number;
 
     if (_portraitId !== portraitId) {
-      return res.status(403).json({ message: 'Node not authenticated' });
+      return res.status(403).json({ error: 'Node not authenticated' });
     }
 
     const lastCheckIn = store.get('lastCheckIn.years') as number;
@@ -33,21 +33,13 @@ export default async (req, res) => {
 
     // Check if the last check-in was today
     if (year === lastCheckIn && month === lastCheckInMonth && day === lastCheckInDay) {
-      return res.status(403).json({ message: 'Node already checked in today' });
+      return res.status(403).json({ error: 'Node already checked in today' });
     }
 
     const nodeAddress = store.get('ethereumAddress') as string;
     const deviceName = store.get('accounts.current.deviceName') as string;
     const checkInTimestamp = now.getTime();
     const currentBlockNumber = await getCurrentBlockNumber();
-
-    await fetch(`${API_URL}/node/checkin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ portraitId, identifier, nodeAddress, deviceName, checkInTimestamp }),
-    });
 
     const portraits = store.get('portraits') as any[];
     let portraitIdArray = [];
@@ -71,6 +63,21 @@ export default async (req, res) => {
     };
 
     await sendMessage(pingAllNodesContentTopic, PortraitPingMessage, message);
+
+    await fetch(`${API_URL}/node/checkin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ portraitId, identifier, nodeAddress, deviceName, checkInTimestamp }),
+    });
+
+    // Update the last check-in date
+    store.set('lastCheckIn', {
+      years: year,
+      months: month,
+      days: day,
+    });
 
     return res.status(200).json({ message: 'Node checked in' });
   } catch (e) {

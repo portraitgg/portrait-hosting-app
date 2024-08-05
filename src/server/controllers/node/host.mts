@@ -5,6 +5,7 @@ import {
 } from '../../../helpers/protocol/subscribeWithCallback.mjs';
 import { postUpdateContentTopic, getLatestPortraitContentTopic } from '../../../helpers/protocol/contentTopics.mjs';
 import { actionTrayAnimation } from '../../../trayMenu/createTray.mjs';
+import { API_URL } from '../../../globals.mjs';
 
 export default async (req, res) => {
   try {
@@ -19,6 +20,18 @@ export default async (req, res) => {
     subscribedPortraits.push(portraitId);
 
     store.set('subscribedPortraits', subscribedPortraits);
+
+    const identifier = store.get('accounts.current.identifier') as string;
+    const nodeAddress = store.get('ethereumAddress') as string;
+    const authenticated = store.get('accounts.current.portraitId');
+
+    await fetch(`${API_URL}/node/host`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ identifier, nodeAddress, authenticated, subscribedPortraits }),
+    });
 
     actionTrayAnimation();
 

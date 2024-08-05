@@ -2,7 +2,7 @@ import { API_URL } from '../../globals.mjs';
 
 export async function updateCall(identifier: string, portraitId: string, nodeAddress: string, update: object) {
   try {
-    const url = `${API_URL}/api/v2/node/update`;
+    const url = `${API_URL}/node/update`;
     const body = {
       identifier,
       portraitId,
