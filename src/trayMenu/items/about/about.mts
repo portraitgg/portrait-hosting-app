@@ -5,6 +5,8 @@ import { FRONTEND_URL } from '../../../globals.mjs';
 
 import { store } from '../../../helpers/store.mjs';
 
+import { isDev } from '../../../globals.mjs';
+
 // TO-DO: Move this to a global helper, as it is used in multiple places
 export const getAboutIcon = () => {
   const __filename = fileURLToPath(import.meta.url);
@@ -23,6 +25,9 @@ export const getAboutIcon = () => {
 };
 
 export const getAboutItem = () => {
+  const aboutDetailDefaultString =
+    'A desktop application that allows you to host and serve Portraits on the Portrait Network.\n\n© 2024 Portrait Technology Inc.';
+  const aboutDetail = isDev ? `${aboutDetailDefaultString}\n\nThis is a development build.` : aboutDetailDefaultString;
   const aboutItem = {
     label: store.get('menu.about.label'),
     accelerator: store.get('menu.about.accelerator'),
@@ -32,7 +37,7 @@ export const getAboutItem = () => {
           title: 'Portrait Hosting Node',
           message: `Hosting Node v${app.getVersion()}`,
           type: 'info',
-          detail: 'A desktop application that allows you to host Portraits.\n\n© 2024 Portrait Technology Inc.',
+          detail: aboutDetail,
           icon: getAboutIcon(),
           buttons: ['More information', 'Close'],
         })

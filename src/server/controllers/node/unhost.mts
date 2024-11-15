@@ -26,6 +26,8 @@ export default async (req, res) => {
     const nodeAddress = store.get('ethereumAddress') as string;
     const authenticated = store.get('accounts.current.portraitId');
 
+    actionTrayAnimation();
+
     await fetch(`${API_URL}/node/host`, {
       method: 'POST',
       headers: {
@@ -33,8 +35,6 @@ export default async (req, res) => {
       },
       body: JSON.stringify({ identifier, nodeAddress, authenticated, subscribedPortraits }),
     });
-
-    actionTrayAnimation();
 
     return res.status(200).json({ message: 'Portrait unhosted' });
   } catch (e) {

@@ -100,13 +100,15 @@ const updatesCallbackValidator = async (msg: any, isAll: boolean) => {
   // The CID of the portraitObject must be equal to the CID of the portraitId stored in the PortraitStateRegistry contract.
   const onchainCID = await PortraitStateRegistry.portraitIdToPortraitHash(portraitId);
 
+  console.log(portraitObjectAsJson);
   const portraitBuffer = Buffer.from(JSON.stringify(portraitObjectAsJson));
 
   const computedCID = createIpfsHash(portraitBuffer);
 
   if (onchainCID != computedCID) {
-    console.log('Invalid CID');
-    throw new Error('Invalid CID');
+    console.log('Invalid CID 1');
+    console.log(onchainCID, computedCID);
+    throw new Error('Invalid CID 1');
   }
 
   console.log('finished updatesCallbackValidator');
@@ -208,8 +210,9 @@ const latestCallbackValidator = async (msg: any, isAll: boolean) => {
   const computedCID = createIpfsHash(portraitBuffer);
 
   if (onchainCID != computedCID) {
-    console.log('Invalid CID');
-    throw new Error('Invalid CID');
+    console.log(onchainCID, computedCID);
+    console.log('Invalid CID 2');
+    throw new Error('Invalid CID 2');
   }
 
   return { decodedMessage, portraitId };

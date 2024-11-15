@@ -11,31 +11,37 @@ export default async (req, res) => {
   try {
     const { portraitId } = req.body;
 
-    await processStoreMessagesFromContentTopic(getLatestPortraitContentTopic(portraitId));
-    await processStoreMessagesFromContentTopic(postUpdateContentTopic(portraitId));
-    await subscribeToContentTopic(postUpdateContentTopic(portraitId));
-
     // Add the portraitId to the subscribedPortraits array
     const subscribedPortraits = store.get('subscribedPortraits') as number[];
     subscribedPortraits.push(portraitId);
-
+    console.log('subscribedPortraits', subscribedPortraits);
     store.set('subscribedPortraits', subscribedPortraits);
 
     const identifier = store.get('accounts.current.identifier') as string;
     const nodeAddress = store.get('ethereumAddress') as string;
     const authenticated = store.get('accounts.current.portraitId');
 
-    await fetch(`${API_URL}/node/host`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ identifier, nodeAddress, authenticated, subscribedPortraits }),
-    });
+    try {
+      await fetch(`${API_URL}/node/host`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ identifier, nodeAddress, authenticated, subscribedPortraits }),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+    res.status(200).json({ message: 'Portrait hosted' });
 
     actionTrayAnimation();
 
-    return res.status(200).json({ message: 'Portrait hosted' });
+    await processStoreMessagesFromContentTopic(getLatestPortraitContentTopic(portraitId));
+    await processStoreMessagesFromContentTopic(postUpdateContentTopic(portraitId));
+    await subscribeToContentTopic(postUpdateContentTopic(portraitId));
+
+    return;
   } catch (e) {
     console.log(e);
     return res.status(500).json({ error: e.message });
