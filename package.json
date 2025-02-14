@@ -13,7 +13,10 @@
     "build-and-start-electron": " npm run build && npm run start-electron",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "build-windows": "tsc && npm run copy-assets-windows",
+    "copy-assets-windows": "xcopy /E /I src\\assets dist\\assets & xcopy /E /I src\\contracts dist\\contracts",
+    "build-and-start-electron-windows": "npm run build-windows && npm run start-electron"
   },
   "keywords": [],
   "author": "ryan",
@@ -23,12 +26,14 @@
     "@electron-forge/maker-deb": "^7.4.0",
     "@electron-forge/maker-rpm": "^7.4.0",
     "@electron-forge/maker-squirrel": "^7.5.0",
+    "@electron-forge/maker-wix": "^7.6.1",
     "@electron-forge/maker-zip": "^7.4.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "@types/dockerode": "^3.3.23",
     "electron": "^30.0.1",
+    "electron-wix-msi": "^5.1.3",
     "typescript": "^5.3.2"
   },
   "dependencies": {

@@ -3,10 +3,11 @@
 This repository contains the hosting node, which facilitates the decentralized hosting and distribution of data associated with Portraits. For more information about the Portrait Protocol and the app, visit our [documentation](https://learn.portrait.so).
 
 ## Download
-To download the app, please use the following link for Mac (ARM) and Mac (x64):
+To download the app, please use the following link for Mac (ARM) and Mac (x64) or Windows:
 
 - [Download for Mac (ARM)](https://api.portrait.so/api/v2/node/download?platform=mac-arm)
 - [Download for Mac (x64)](https://api.portrait.so/api/v2/node/download?platform=mac-x64)
+- [Download for Windows](https://api.portrait.so/api/v2/node/download?platform=windows)
 
 > Note: The app is currently in beta and only available for Mac. Support for other platforms will be considered in the future.
 
