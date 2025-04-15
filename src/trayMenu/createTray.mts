@@ -1,6 +1,7 @@
 import { Menu, Tray, nativeTheme } from 'electron';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import os from 'os';
 
 import { buildTrayMenu } from './trayMenu.mjs';
 import { store } from '../helpers/store.mjs';
@@ -18,12 +19,30 @@ export function fillTrayMenu() {
   tray?.setContextMenu(rerenderTrayMenu);
 }
 
+function getTrayIconPath() {
+  const isWindows = os.platform() === 'win32';
+  const isDarkMode = nativeTheme.shouldUseDarkColors;
+ 
+  // Use darker icon on Windows if theme is dark
+  if (isWindows && isDarkMode) {
+    return path.join(__dirname, '/assets/trayIcon/', 'trayIconLight.png');
+  }
+
+  // Default icon (for macOS or light mode)
+  return path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png');
+}
+
+nativeTheme.on('updated', () => {
+  if (tray) tray.setImage(getTrayIconPath());
+});
+
 function createTray() {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
   // https://stackoverflow.com/a/41998326
-  tray = new Tray(path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png'));
+  // tray = new Tray(path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png'));
+  tray = new Tray(getTrayIconPath());
 
   tray.setToolTip('Portrait Hosting Node');
   tray.setContextMenu(menu);
@@ -52,7 +71,9 @@ function createTray() {
   });
 }
 
-const trayIconTemplate = path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png');
+// const trayIconTemplate = path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png');
+const trayIconTemplate = getTrayIconPath();
+
 
 async function loadingIcon(frame = 1) {
   const wakuReadyState = store.get('waku.ready');
@@ -63,7 +84,12 @@ async function loadingIcon(frame = 1) {
     return;
   }
 
-  const frameFile = path.join(__dirname, `/assets/trayLoader/loader-${frame}-Template.png`);
+  const isDarkMode = nativeTheme.shouldUseDarkColors;
+  const isWindows = os.platform() === 'win32';
+
+  const suffix = (isWindows && isDarkMode) ? 'Light' : 'Template';
+
+  const frameFile = path.join(__dirname, `/assets/trayLoader/loader-${frame}-${suffix}.png`);
   tray?.setImage(frameFile);
 
   let nextFrame = frame + 1;
@@ -99,14 +125,19 @@ export async function actionTrayAnimation(frame = 1) {
       17: 90,
     };
 
-    const frameFile = (f: string) => path.join(__dirname, `/assets/actionAnimation/action-icon-${f}-Template.png`);
+    const isDarkMode = nativeTheme.shouldUseDarkColors;
+    const isWindows = os.platform() === 'win32';
+  
+    const suffix = (isWindows && isDarkMode) ? 'Light' : 'Template';
+
+    const frameFile = (f: string) => path.join(__dirname, `/assets/actionAnimation/action-icon-${f}-${suffix}.png`);
     tray?.setImage(frameFile(framesObject[frame]));
 
     await new Promise((resolve) => setTimeout(resolve, 50));
 
     return actionTrayAnimation(frame + 1);
   }
-  const trayIconTemplate = path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png');
+  const trayIconTemplate = getTrayIconPath();
 
   tray?.setImage(trayIconTemplate);
 

@@ -27,6 +27,20 @@ module.exports = {
       name: '@electron-forge/maker-wix',
       config: {
         language: 1033, // English
+        manufacturer: 'Portrait Technology Inc.',
+        exe: 'Portrait',
+        icon: './src/assets/aboutIcon/logo_new.ico',
+        ui: {
+          chooseDirectory: true, // Allows users to pick an install location
+        },
+       name: 'Portrait', // Folder name in program files
+       shortcutName: 'Portrait', // Custom name for the Start Menu & Desktop shortcut
+      },
+    },
+    {
+      name: '@electron-forge/maker-wix',
+      config: {
+        language: 1033, // English
         manufacturer: 'Portrait Inc.',
         exe: 'Portrait',
         icon: './src/assets/aboutIcon/logo_new.ico',
