@@ -3,6 +3,7 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
 module.exports = {
   packagerConfig: {
+    "executableName": "portrait-menu-bar-app",
     icon: './src/assets/appIcon/icon.icns',
     asar: true,
     // This makes sure that the app is not shown in the dock on macOS.
