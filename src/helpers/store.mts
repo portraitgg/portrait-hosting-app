@@ -48,9 +48,6 @@ function setDefaultStoreValues() {
 
   store.get('lastUpdateTimestamp') || store.set('lastUpdateTimestamp', timeNow);
 
-  // Waku is not ready by default
-  store.set('waku.ready', false);
-
   store.get('notifications.startTimestamp') || store.set('notifications.startTimestamp', timeNow);
 
   // if privateKey doesnt exist in store, create a random one with ethers
