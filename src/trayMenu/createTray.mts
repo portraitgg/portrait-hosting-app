@@ -2,7 +2,7 @@ import { Menu, Tray, nativeTheme } from 'electron';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import os from 'os';
-
+import { isWakuNodeActive } from '../helpers/protocol/initWaku.mjs';
 import { buildTrayMenu } from './trayMenu.mjs';
 import { store } from '../helpers/store.mjs';
 
@@ -22,7 +22,7 @@ export function fillTrayMenu() {
 function getTrayIconPath() {
   const isWindows = os.platform() === 'win32';
   const isDarkMode = nativeTheme.shouldUseDarkColors;
- 
+
   // Use darker icon on Windows if theme is dark
   if (isWindows && isDarkMode) {
     return path.join(__dirname, '/assets/trayIcon/', 'trayIconLight.png');
@@ -49,7 +49,7 @@ function createTray() {
 
   console.log('Tray created');
 
-  loadingIcon();
+  // loadingIcon();
 
   // get position of tray icon
   const trayBounds = tray.getBounds();
@@ -74,11 +74,8 @@ function createTray() {
 // const trayIconTemplate = path.join(__dirname, '/assets/trayIcon/', 'trayIconTemplate.png');
 const trayIconTemplate = getTrayIconPath();
 
-
-async function loadingIcon(frame = 1) {
-  const wakuReadyState = store.get('waku.ready');
-
-  if (wakuReadyState) {
+export async function loadingIcon(frame = 1) {
+  if (isWakuNodeActive()) {
     console.log('Waku is ready!');
     tray?.setImage(trayIconTemplate);
     return;
@@ -87,7 +84,7 @@ async function loadingIcon(frame = 1) {
   const isDarkMode = nativeTheme.shouldUseDarkColors;
   const isWindows = os.platform() === 'win32';
 
-  const suffix = (isWindows && isDarkMode) ? 'Light' : 'Template';
+  const suffix = isWindows && isDarkMode ? 'Light' : 'Template';
 
   const frameFile = path.join(__dirname, `/assets/trayLoader/loader-${frame}-${suffix}.png`);
   tray?.setImage(frameFile);
@@ -127,8 +124,8 @@ export async function actionTrayAnimation(frame = 1) {
 
     const isDarkMode = nativeTheme.shouldUseDarkColors;
     const isWindows = os.platform() === 'win32';
-  
-    const suffix = (isWindows && isDarkMode) ? 'Light' : 'Template';
+
+    const suffix = isWindows && isDarkMode ? 'Light' : 'Template';
 
     const frameFile = (f: string) => path.join(__dirname, `/assets/actionAnimation/action-icon-${f}-${suffix}.png`);
     tray?.setImage(frameFile(framesObject[frame]));

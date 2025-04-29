@@ -1,6 +1,6 @@
 // In this file, everything comes together.
 import { setLastUpdateTimestamp } from '../lastUpdate.mjs';
-import { initWakuNode } from './initWaku.mjs';
+import { initWakuNode, wakuNode, isWakuNodeActive, stopWakuNode } from './initWaku.mjs';
 import { subscribeToContentTopic, processStoreMessagesFromContentTopic } from './subscribeWithCallback.mjs';
 import { postUpdateContentTopic, getLatestPortraitContentTopic } from './contentTopics.mjs';
 import { store } from '../store.mjs';
@@ -26,10 +26,11 @@ export const restartWakuNodePeriodically = () => {
 };
 
 export const restartWakuNode = () => {
-  store.set('waku.ready', false);
-  initWakuNode().then(() => {
-    subscribeToHostedPortraitsTopics();
+  stopWakuNode().then(() => {
+    initWakuNode().then(() => {
+      subscribeToHostedPortraitsTopics();
+    });
+
+    setLastUpdateTimestamp();
   });
-  store.set('waku.ready', true);
-  setLastUpdateTimestamp();
 };
