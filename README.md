@@ -20,15 +20,15 @@ Once you have downloaded the app and moved it to your Applications folder, you c
 ### Unidentified Developer
 When you run the app for the first time, you might see a message saying that the app is from an unidentified developer. You might need to allow the app to run on your Mac by going to System Preferences > Security & Privacy > General and clicking on "Open Anyway" next to the Portrait Hosting Node app. Or you can right-click on the app icon and select "Open" from the dropdown menu.
 
-<img src="https://portrait.host/ipfs/bafkreigejcjfj7oanbpxhkz5keapw6uekwy5tn2zvisgvmhnqymtdg3pcu" width="300"/>
+<img src="https://media.portrait.host/media/bafkreigejcjfj7oanbpxhkz5keapw6uekwy5tn2zvisgvmhnqymtdg3pcu" width="300"/>
 
 #### Keychain Access
 The app requires access to the keychain to store your data locally. When you run the app for the first time, you will be prompted to allow the app to access the keychain. Click on "Always Allow" to grant access.
 
 <table>
   <tr>
-    <td><img src="https://portrait.host/ipfs/bafkreiacgzwe7gj2kiki67vsr5gvmnvkjytqziynconpe2mlxwchrgpxke" alt="Image 1" width="300"/></td>
-    <td><img src="https://portrait.host/ipfs/bafkreidt3yd4btt3qsdeza52qh263tk26ui36pbagrxlymz525aur65pru" alt="Image 2" width="300"/></td>
+    <td><img src="https://media.portrait.host/media/bafkreiacgzwe7gj2kiki67vsr5gvmnvkjytqziynconpe2mlxwchrgpxke" alt="Image 1" width="300"/></td>
+    <td><img src="https://media.portrait.host/media/bafkreidt3yd4btt3qsdeza52qh263tk26ui36pbagrxlymz525aur65pru" alt="Image 2" width="300"/></td>
   </tr>
 </table>
 
